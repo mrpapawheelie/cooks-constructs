@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cooks-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cooks-api
+  template:
+    metadata:
+      labels:
+        app: cooks-api
+    spec:
+      containers:
+        - name: api
+          image: yourdockerhub/cooks-api:latest
+          ports:
+            - containerPort: 80 

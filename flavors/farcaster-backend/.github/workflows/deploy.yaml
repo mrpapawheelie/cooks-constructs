@@ -1,0 +1,23 @@
+name: Deploy to K3s
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Decode KUBECONFIG
+        run: echo "${{ secrets.KUBECONFIG_BASE64 }}" | base64 --decode > kubeconfig
+
+      - name: Deploy manifests
+        run: kubectl --kubeconfig=kubeconfig apply -f flavors/farcaster-backend/k8s/ 
