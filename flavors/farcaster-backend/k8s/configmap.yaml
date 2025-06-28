@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cooks-api-config
+  namespace: farcaster-backend
+data:
+  # Add your environment variables or config here
+  EXAMPLE_ENV: "value" 
