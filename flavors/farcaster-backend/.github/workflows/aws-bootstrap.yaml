@@ -1,0 +1,42 @@
+name: AWS Bootstrap Infrastructure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Set up Lightsail servers (placeholder)
+        run: |
+          # Example: Create 3 Lightsail instances
+          aws lightsail create-instances \
+            --instance-names master-node worker-node-1 worker-node-2 \
+            --availability-zone us-east-1a \
+            --blueprint-id ubuntu_22_04 \
+            --bundle-id nano_2_0 \
+            --user-data file://setup.sh
+
+      - name: Attach static IPs (placeholder)
+        run: |
+          # Example: Attach static IPs to each instance
+          aws lightsail allocate-static-ip --static-ip-name master-ip
+          aws lightsail attach-static-ip --static-ip-name master-ip --instance-name master-node
+          # Repeat for worker-node-1 and worker-node-2
+
+      - name: Open ports (e.g., 443) (placeholder)
+        run: |
+          # Example: Open HTTPS port
+          aws lightsail open-instance-public-ports --port-info fromPort=443,toPort=443,protocol=TCP --instance-name master-node
+          # Repeat for other nodes as needed
+
+      # Add more steps for DNS, SSH key distribution, etc. as needed 
