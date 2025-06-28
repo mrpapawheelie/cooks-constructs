@@ -1,6 +1,6 @@
 # Farcaster Backend (flavor)
 
-This directory contains the DebOps orchestration for a self-hosted, vendor-free Farcaster backend stack.
+This directory contains the DevOps orchestration for a self-hosted, vendor-free Farcaster backend stack.
 
 ## Overview
 - Kubernetes manifests are provided in the `k8s/` directory for deployment.
